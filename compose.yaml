@@ -1,5 +1,5 @@
 services:
-  server:
+  app:
     image: ghcr.io/pycabbage/its-personal-exercises:latest
     pull_policy: always
     build:

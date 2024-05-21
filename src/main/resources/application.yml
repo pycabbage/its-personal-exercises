@@ -22,9 +22,6 @@ spring:
     graphiql:
       enabled: true
   security:
-#    user:
-#      name: user
-#      password: password
     oauth2:
       authorizationserver:
         client:
