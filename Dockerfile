@@ -12,7 +12,8 @@ RUN \
     --mount=type=cache,target=build \
     --mount=type=cache,target=bin \
     --mount=type=cache,target=.gradle \
-    ./gradlew build && \
+    --mount=type=cache,target=${HOME}/.gradle \
+    ./gradlew build -x test && \
     cp $(ls -S build/libs/*.war | head -n1) /tmp/app.war
 
 ################################################################################
