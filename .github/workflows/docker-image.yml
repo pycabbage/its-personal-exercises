@@ -16,6 +16,9 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -78,6 +81,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Sign the published Docker image
+        continue-on-error: true
         if: ${{ github.event_name != 'pull_request' }}
         env:
           TAGS: ${{ steps.meta.outputs.tags }}
