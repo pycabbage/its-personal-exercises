@@ -35,7 +35,7 @@ USER appuser
 
 # Copy the executable from the "package" stage.
 COPY --from=build --chown=appuser \
-    build/target/app.jar app.jar
+    /tmp/app.war app.war
 
 EXPOSE 8080
 
