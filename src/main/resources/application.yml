@@ -6,10 +6,12 @@ logging:
     org.springframework.security: trace
 
 spring:
+  config:
+    import: optional:file:.env[.properties]
   application:
     name: demo1
   datasource:
-    url: jdbc:mysql://localhost:3306/${MYSQL_DATABASE}
+    url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_DATABASE}
     username: root
     password: ${MYSQL_ROOT_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
