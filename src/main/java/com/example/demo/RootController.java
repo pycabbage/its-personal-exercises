@@ -22,5 +22,4 @@ public class RootController {
     public Author author(Book book) {
         return Author.getById(book.authorId());
     }
-
 }
