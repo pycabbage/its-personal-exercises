@@ -6,6 +6,19 @@ logging:
     org.springframework.security: trace
 
 spring:
+  application:
+    name: demo1
+  datasource:
+    url: jdbc:mysql://localhost:3306/${MYSQL_DATABASE}
+    username: root
+    password: ${MYSQL_ROOT_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+  graphql:
+    graphiql:
+      enabled: true
   security:
 #    user:
 #      name: user
