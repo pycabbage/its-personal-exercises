@@ -3,6 +3,7 @@ package com.example.demo.data;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "availability_dates")
+@Builder
 public class AvailabilityDate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,9 +31,4 @@ public class AvailabilityDate {
     @NotNull
     private AvailabilityStatus status;
 
-    public enum AvailabilityStatus {
-        NO,
-        YES,
-        MAYBE
-    }
 }

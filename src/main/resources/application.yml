@@ -6,6 +6,8 @@ spring:
     import: optional:file:.env[.properties]
   application:
     name: demo1
+    admin:
+      enabled: true
   datasource:
     url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_DATABASE}
     username: root
@@ -13,6 +15,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
+#      ddl-auto: create
       ddl-auto: update
   graphql:
     graphiql:

@@ -9,9 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class RootController {
     private static final Logger log = LoggerFactory.getLogger(RootController.class);
 
-    @GetMapping("/content")
+    @GetMapping("/")
     public String index() {
         log.info("index");
+        return "index";
+    }
+
+    @GetMapping("/content")
+    public String content() {
+        log.info("content");
         return "index";
     }
 }

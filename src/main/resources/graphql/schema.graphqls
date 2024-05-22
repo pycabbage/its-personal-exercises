@@ -1,5 +1,38 @@
+scalar Date
+
 type Query {
     bookById(id: ID): Book
+
+#    register(user: PrivateUser): PublicUser
+#    login(
+#        username: String,
+#        password: String
+#    ): Boolean
+
+    # devListSchedule: [Schedule]
+
+    # createSchedule(
+    #     title: String,
+    #     userId: Long,
+    #     start: LocalDate,
+    #     end: LocalDate
+    # ): Schedule
+    # getSchedule(
+    #     scheduleId: Int
+    # ): Schedule
+    # writeSchedule(
+    #     scheduleId: Int,
+    #     availabilities: Availabilities
+    # ): Schedule
+    # writeSchedule(
+    #     availabilities: [Availabilities]
+    # ): Schedule
+}
+
+type Author {
+    id: ID
+    firstName: String
+    lastName: String
 }
 
 type Book {
@@ -8,9 +41,43 @@ type Book {
     pageCount: Int
     author: Author
 }
-
-type Author {
-    id: ID
-    firstName: String
-    lastName: String
-}
+#
+#type PublicUser {
+#    userId: Int
+#    name: String
+#    displayName: String
+#}
+#
+#input PrivateUser {
+#    userId: Int
+#    name: String
+#    displayName: String
+#    password: String
+#}
+#
+#type Period {
+#    start: Date
+#    end: Date
+#}
+#type Availabilities {
+#    createdBy: PublicUser
+#    dates: [AvailabilityDate]
+#}
+#type AvailabilityDate {
+#    date: Date
+#    availability: AvailabilityStatus
+#}
+#
+#enum AvailabilityStatus {
+#    YES
+#    NO
+#    MAYBE
+#}
+#
+#type Schedule {
+#    scheduleId: Int
+#    title: String
+#    createdBy: PublicUser
+#    period: Period
+#    availabilities: [Availabilities]
+#}
