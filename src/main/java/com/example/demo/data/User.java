@@ -28,7 +28,6 @@ public class User {
     private Long userId;
 
     @NotBlank
-    @UniqueElements
     private String name;
 
     @NotBlank

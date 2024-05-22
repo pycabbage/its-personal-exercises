@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.data.Availability;
@@ -27,15 +28,15 @@ import lombok.RequiredArgsConstructor;
 public class DataService {
 //    private final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    // @Autowired
+    @Autowired
     AvailabilityRepository availabilityRepository;
-    // @Autowired
+    @Autowired
     AvailabilityDateRepository availabilityDateRepository;
-    // @Autowired
+    @Autowired
     PeriodRepository periodRepository;
-    // @Autowired
+    @Autowired
     ScheduleRepository scheduleRepository;
-    // @Autowired
+    @Autowired
     UserRepository userRepository;
 
     /**
@@ -83,6 +84,7 @@ public class DataService {
         // 予定表の作成
         Schedule schedule = Schedule.builder()
                 .title(title)
+                .description("")
                 .createdBy(user)
                 .build();
         schedule = scheduleRepository.save(schedule);
