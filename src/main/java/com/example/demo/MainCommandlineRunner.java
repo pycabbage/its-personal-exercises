@@ -12,16 +12,16 @@ public class MainCommandlineRunner implements CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(MainCommandlineRunner.class);
 
-    @Autowired
-    private DataService dataService;
+//    @Autowired
+//    private DataService dataService;
 
     @Override
     public void run(String... args) {
         log.info("MainCommandlineRunner");
-        dataService.registerUser(
-            "test",
-            "test",
-            "test"
-        );
+//        dataService.registerUser(
+//            "test",
+//            "test",
+//            "test"
+//        );
     }
 }

@@ -3,35 +3,25 @@ package com.example.demo.data;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
-import jakarta.validation.constraints.NotBlank;
-import java.util.Date;
-
 
 @Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Schedule {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long scheduleId;
 
     @NotBlank
-    private String title;
+    private String name;
 
     @NotBlank
-    private String uuid;
-
-    @NotNull
-    private String description = "";
-
-    @NotNull
-    private Date periodStart;
-
-    @NotNull
-    private Date periodEnd;
+    private String description;
 }
