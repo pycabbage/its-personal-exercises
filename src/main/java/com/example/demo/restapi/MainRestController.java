@@ -21,16 +21,12 @@ public class MainRestController {
 
 
     @GetMapping("/schedule")
-    public Schedule getSchedule(
+    public ScheduleOut getSchedule(
         @RequestParam("scheduleId") Long scheduleId
     ) {
         com.example.demo.data.Schedule schedule = dataService.getSchedule(scheduleId);
-
-//        return new Schedule(
-//            schedule,
-//            periodRepository.findBySchedule(schedule)
-//        );
-        return new Schedule(
+        return new ScheduleOut(
+            scheduleId,
             schedule.getTitle(),
             schedule.getDescription(),
             schedule.getCreatedBy().getUserId(),
@@ -39,7 +35,7 @@ public class MainRestController {
     }
 
     @PostMapping("/schedule")
-    public void createSchedule(
+    public ScheduleOut createSchedule(
         @RequestBody Schedule schedule
     ) {
         com.example.demo.data.Schedule createdSchedule = dataService.createSchedule(
@@ -49,6 +45,17 @@ public class MainRestController {
             schedule.getPeriod().getStart(),
             schedule.getPeriod().getEnd()
         );
-    }
 
+        var sc = new Schedule(
+            createdSchedule.getTitle(),
+            createdSchedule.getDescription(),
+            createdSchedule.getCreatedBy().getUserId(),
+            schedule.getPeriod()
+        );
+
+        return new ScheduleOut(
+            createdSchedule.getScheduleId(),
+            sc
+        );
+    }
 }
