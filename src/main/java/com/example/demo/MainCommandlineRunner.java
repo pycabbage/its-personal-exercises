@@ -23,9 +23,9 @@ public class MainCommandlineRunner implements CommandLineRunner {
     public void run(String... args) {
         log.info("MainCommandlineRunner");
         var user1 = dataService.registerUser(
-            "test",
-            "test",
-            "test"
+            "test1",
+            "test1",
+            "test1"
         );
         var user2 = dataService.registerUser(
             "test2",
@@ -34,6 +34,7 @@ public class MainCommandlineRunner implements CommandLineRunner {
         );
         Schedule schedule = dataService.createSchedule(
             "sample schedule",
+            "this is sample schedule",
             user1.getUserId(),
             LocalDate.parse("2024-06-01"),
             LocalDate.parse("2024-06-07")
@@ -55,7 +56,5 @@ public class MainCommandlineRunner implements CommandLineRunner {
                 AvailabilityStatus.MAYBE
             );
         }
-        
-
     }
 }

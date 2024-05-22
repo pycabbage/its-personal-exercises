@@ -15,6 +15,7 @@ type Query {
 
      createSchedule(
          title: String,
+         description: String,
          userId: Int,
          start: Date,
          end: Date

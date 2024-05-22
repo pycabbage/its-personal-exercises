@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional
 public class DataService {
+    private static final Logger log = LoggerFactory.getLogger(DataService.class);
 //    private final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Autowired
@@ -46,12 +49,19 @@ public class DataService {
             String name,
             String displayName,
             String password) {
-        return userRepository.save(new User(
+        Boolean isExists = userRepository.existsByName(name);
+        if (isExists) {
+            log.info("user already exists: " + name);
+            return this.getUser(name);
+        } else {
+            log.info("user not exists: " + name);
+            return userRepository.save(new User(
                 name,
                 displayName,
                 // encoder.encode(password))
                 password
-        ));
+            ));
+        }
     }
 
     /**
@@ -73,6 +83,7 @@ public class DataService {
      */
     public Schedule createSchedule(
             String title,
+            String description,
             Long userId,
             LocalDate start,
             LocalDate end
@@ -84,7 +95,7 @@ public class DataService {
         // 予定表の作成
         Schedule schedule = Schedule.builder()
                 .title(title)
-                .description("")
+                .description(description)
                 .createdBy(user)
                 .build();
         schedule = scheduleRepository.save(schedule);

@@ -41,11 +41,13 @@ public class ApiController {
      @QueryMapping
      public Schedule createSchedule(
              @Argument String title,
+             @Argument String description,
              @Argument Long userId,
              @Argument LocalDate start,
              @Argument LocalDate end) {
          var createdSchedule = dataService.createSchedule(
                  title,
+                 description,
                  userId,
                  start,
                  end);
