@@ -1,14 +1,14 @@
 services:
-  # server:
-  #   image: nginx:1.25.5
-  #   ports:
-  #     - "5000:5000"
-  #   volumes:
-  #     - ./server/proxy.conf:/etc/nginx/conf.d/proxy.conf:ro
-  #   networks:
-  #     - proxy_network
-  #   depends_on:
-  #     - api
+  server:
+    image: nginx:1.25.5
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server/proxy.conf:/etc/nginx/conf.d/proxy.conf:ro
+    networks:
+      - proxy_network
+    depends_on:
+      - web
   web:
     image: ghcr.io/pycabbage/its-personal-exercises/web:latest
     pull_policy: always
@@ -16,13 +16,14 @@ services:
       context: web
       args:
         - API_HOST=api
-    ports:
-      - 3000:3000
     environment:
       - API_HOST=api
-    # expose:
-    #   - "3000/tcp"
+    # ports:
+    #   - 3000:3000
+    expose:
+      - "3000/tcp"
     networks:
+      - proxy_network
       - api_network
     depends_on:
       - api
@@ -76,6 +77,6 @@ volumes:
   db-data:
 
 networks:
-  # proxy_network:
+  proxy_network:
   api_network:
   database_network:
