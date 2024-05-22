@@ -1,12 +1,25 @@
 services:
-  server:
-    image: nginx:1.25.5
+  # server:
+  #   image: nginx:1.25.5
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - ./server/proxy.conf:/etc/nginx/conf.d/proxy.conf:ro
+  #   networks:
+  #     - proxy_network
+  #   depends_on:
+  #     - api
+  web:
+    # image: ghcr.io/pycabbage/its-personal-web:latest
+    # pull_policy: always
+    build:
+      context: web
     ports:
-      - "5000:5000"
-    volumes:
-      - ./server/proxy.conf:/etc/nginx/conf.d/proxy.conf:ro
+      - 3000:3000
+    # expose:
+    #   - "80/tcp"
     networks:
-      - proxy_network
+      - api_network
     depends_on:
       - api
   api:
@@ -33,7 +46,7 @@ services:
       start_period: 5s
     networks:
       - database_network
-      - proxy_network
+      - api_network
   db:
     image: mysql:8.4
     restart: always
@@ -64,5 +77,6 @@ volumes:
   db-data:
 
 networks:
-  proxy_network:
+  # proxy_network:
+  api_network:
   database_network:
