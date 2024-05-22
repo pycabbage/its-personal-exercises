@@ -1,9 +1,9 @@
 package com.example.demo.data;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,17 +11,24 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Availability {
+    public Availability(String username, AvailabilityStatus status, Schedule schedule) {
+        this.username = username;
+        this.status = status;
+        this.schedule = schedule;
+    }
+
     @Id
     @GeneratedValue
     private Long availabilityId;
 
-    @ManyToOne
+    @NotBlank
+    private String username;
+
     @NotNull
-    private Schedule schedule;
+    @Enumerated(EnumType.STRING)
+    private AvailabilityStatus status;
 
     @ManyToOne
-    @NotNull
-    private User createdBy;
+    private Schedule schedule;
 }
