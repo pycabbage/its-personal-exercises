@@ -11,7 +11,6 @@ export default async function Home() {
       <form
         action={async formdata => {
           "use server";
-          console.log(Array.from(formdata.entries()));
           const scheduleId = await createSchedule({
             title: formdata.get("title") as string,
             date: formdata.get("date") as string,

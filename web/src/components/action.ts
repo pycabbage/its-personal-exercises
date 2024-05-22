@@ -3,7 +3,6 @@
 import { getSchedule, TAvailability, updateAvailability } from "@/lib/api";
 
 export default async function action(formdata: FormData) {
-  console.log(Array.from(formdata.entries()));
   const scheduleId = parseInt(formdata.get("scheduleId") as string)
   await updateAvailability({
     scheduleId,

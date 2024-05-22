@@ -13,13 +13,11 @@ public class RootController {
 
     @GetMapping("/")
     public String index() {
-        log.info("index");
         return "index";
     }
 
     @GetMapping("/content")
     public String content() {
-        log.info("content");
         return "index";
     }
 }
