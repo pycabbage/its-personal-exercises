@@ -10,25 +10,25 @@ services:
   #   depends_on:
   #     - api
   web:
-    # image: ghcr.io/pycabbage/its-personal-web:latest
+    # image: ghcr.io/pycabbage/its-personal-exercises/web:latest
     # pull_policy: always
     build:
       context: web
     ports:
       - 3000:3000
+    environment:
+      - API_HOST=api
     # expose:
-    #   - "80/tcp"
+    #   - "3000/tcp"
     networks:
       - api_network
     depends_on:
       - api
   api:
-    image: ghcr.io/pycabbage/its-personal-exercises:latest
-    pull_policy: always
+    # image: ghcr.io/pycabbage/its-personal-exercises:latest
+    # pull_policy: always
     build:
       context: .
-    # ports:
-    #   - 8080:8080
     expose:
       - "8080/tcp"
     environment:
@@ -56,9 +56,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
-    # ports:
-    #   - "3306:3306/tcp"
-    #   - "33060:33060/tcp"
     expose:
       - "3306/tcp"
       - "33060/tcp"

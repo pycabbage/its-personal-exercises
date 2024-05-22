@@ -1,6 +1,14 @@
 import { z } from "zod"
 
-const API_BASE_URL = "http://localhost:8080/"
+function env(name: string): string {
+  const value = process.env[name]
+  if (value === undefined) {
+    throw new Error(`Missing environment variable: ${name}`)
+  }
+  return value
+}
+
+const API_BASE_URL = `http://${env("API_HOST")}:8080/`
 
 export const zAvailability = z.union([
   z.literal("YES"),
