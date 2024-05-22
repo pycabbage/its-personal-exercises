@@ -1,6 +1,7 @@
 FROM node:22 as base
 
 FROM base as final
+ARG API_HOST=api
 
 COPY . /app
 WORKDIR /app

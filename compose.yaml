@@ -10,10 +10,12 @@ services:
   #   depends_on:
   #     - api
   web:
-    # image: ghcr.io/pycabbage/its-personal-exercises/web:latest
-    # pull_policy: always
+    image: ghcr.io/pycabbage/its-personal-exercises/web:latest
+    pull_policy: always
     build:
       context: web
+      args:
+        - API_HOST=api
     ports:
       - 3000:3000
     environment:
@@ -25,8 +27,8 @@ services:
     depends_on:
       - api
   api:
-    # image: ghcr.io/pycabbage/its-personal-exercises:latest
-    # pull_policy: always
+    image: ghcr.io/pycabbage/its-personal-exercises:latest
+    pull_policy: always
     build:
       context: .
     expose:
