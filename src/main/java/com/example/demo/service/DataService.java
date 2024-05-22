@@ -2,8 +2,8 @@ package com.example.demo.service;
 
 import java.time.LocalDate;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.data.Availability;
@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional
 public class DataService {
-    private final PasswordEncoder encoder = new BCryptPasswordEncoder();
+//    private final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
     // @Autowired
     AvailabilityRepository availabilityRepository;
@@ -48,7 +48,9 @@ public class DataService {
         return userRepository.save(new User(
                 name,
                 displayName,
-                encoder.encode(password)));
+                // encoder.encode(password))
+                password
+        ));
     }
 
     /**
@@ -56,6 +58,13 @@ public class DataService {
      */
     public Boolean isValidAuth(String name, String password) {
         return userRepository.existsUserByNameAndPassword(name, password);
+    }
+
+    public User getUser(String name) {
+        return userRepository.findByName(name);
+    }
+    public User getUser(Long userId) {
+        return userRepository.findUserByUserId(userId);
     }
 
     /**

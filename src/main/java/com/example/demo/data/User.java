@@ -25,7 +25,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long userId;
 
     @NotBlank
     @UniqueElements
