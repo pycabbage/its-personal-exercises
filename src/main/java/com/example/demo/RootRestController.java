@@ -1,12 +1,12 @@
 package com.example.demo;
 
+import com.example.demo.data.AvailabilityStatus;
 import com.example.demo.json.Availability;
 import com.example.demo.json.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -34,5 +34,29 @@ public class RootRestController {
             schedule.getTitle(),
             availabilities
         );
+    }
+
+    @PostMapping("/schedule")
+    public void registerSchedule(
+        @RequestParam(required = true) String title,
+        @RequestParam(required = true) LocalDate date,
+        @RequestParam(required = true) String username,
+        @RequestParam(required = true) AvailabilityStatus status
+    ) {
+        dataService.register(
+            title,
+            date,
+            username,
+            status
+        );
+    }
+
+    @PutMapping("/schedule")
+    public void updateSchedule(
+        @RequestParam(required = true) Long scheduleId,
+        @RequestParam(required = true) String username,
+        @RequestParam(required = true) AvailabilityStatus status
+    ) {
+        dataService.insertAvailability(scheduleId, username, status);
     }
 }
