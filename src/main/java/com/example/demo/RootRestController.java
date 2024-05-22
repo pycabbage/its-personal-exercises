@@ -37,18 +37,19 @@ public class RootRestController {
     }
 
     @PostMapping("/schedule")
-    public void registerSchedule(
+    public String registerSchedule(
         @RequestParam(required = true) String title,
         @RequestParam(required = true) LocalDate date,
         @RequestParam(required = true) String username,
         @RequestParam(required = true) AvailabilityStatus status
     ) {
-        dataService.register(
+        var schedule = dataService.register(
             title,
             date,
             username,
             status
         );
+        return schedule.getScheduleId().toString();
     }
 
     @PutMapping("/schedule")
