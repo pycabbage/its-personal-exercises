@@ -1,11 +1,23 @@
 services:
-  app:
+  server:
+    image: nginx:1.25.5
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server/proxy.conf:/etc/nginx/conf.d/proxy.conf:ro
+    networks:
+      - proxy_network
+    depends_on:
+      - api
+  api:
     image: ghcr.io/pycabbage/its-personal-exercises:latest
     pull_policy: always
     build:
       context: .
-    ports:
-      - 8080:8080
+    # ports:
+    #   - 8080:8080
+    expose:
+      - "8080/tcp"
     environment:
       - MYSQL_HOST=db
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
@@ -13,8 +25,15 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-kL", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 6
+      start_period: 5s
     networks:
-      - application_network
+      - database_network
+      - proxy_network
   db:
     image: mysql:8.4
     restart: always
@@ -39,10 +58,11 @@ services:
       retries: 6
       start_period: 5s
     networks:
-      - application_network
+      - database_network
 
 volumes:
   db-data:
 
 networks:
-  application_network:
+  proxy_network:
+  database_network:

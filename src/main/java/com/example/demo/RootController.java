@@ -1,31 +1,17 @@
 package com.example.demo;
 
-import api.Author;
-import api.Book;
-import org.springframework.graphql.data.method.annotation.Argument;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.graphql.data.method.annotation.SchemaMapping;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
-@CrossOrigin
 public class RootController {
-    @GetMapping("/")
+    private static final Logger log = LoggerFactory.getLogger(RootController.class);
+
+    @GetMapping("/content")
     public String index() {
+        log.info("index");
         return "index";
-    }
-
-    @QueryMapping
-    public Book bookById(@Argument String id) {
-        return Book.getById(id);
-    }
-
-    @SchemaMapping
-    public Author author(Book book) {
-        return Author.getById(book.authorId());
     }
 }

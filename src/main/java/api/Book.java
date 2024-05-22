@@ -1,9 +1,14 @@
 package api;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Arrays;
 import java.util.List;
 
 public record Book (String id, String name, int pageCount, String authorId) {
+
+    private static final Logger log = LoggerFactory.getLogger(Book.class);
 
     private static final List<Book> books = Arrays.asList(
             new Book("book-1", "Effective Java", 416, "author-1"),
@@ -12,6 +17,7 @@ public record Book (String id, String name, int pageCount, String authorId) {
     );
 
     public static Book getById(String id) {
+        log.info("getById: {}", id);
         return books.stream()
                 .filter(book -> book.id().equals(id))
                 .findFirst()
